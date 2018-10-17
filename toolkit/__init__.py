@@ -1,2 +1,2 @@
-from pyand.ADB import ADB
-from pyand.Fastboot import Fastboot
+from toolkit.ADB import ADB
+from toolkit.Fastboot import Fastboot

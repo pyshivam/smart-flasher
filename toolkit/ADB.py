@@ -210,7 +210,8 @@ class ADB(object):
                 if device:
                     device_dict[n] = device[0]
                     n += 1
-        except:
+        except Exception as e:
+            print(e)
             self.__devices = None
             error = 1
         self.__devices = device_dict
