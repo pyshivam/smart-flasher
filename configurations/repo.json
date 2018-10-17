@@ -1,0 +1,20 @@
+{
+  "version": "0.0.1",
+  "date": "2018-10-17",
+  "supported_devices": {
+    "Motorola": [
+      {
+        "moto_g5_plus": {
+          "file_name": "moto_g5_plus.json"
+        }
+      }
+    ],
+    "Lenovo": [
+      {
+        "lenovo_p2a42":{
+          "file_name": "lenovo_p2a42.json"
+        }
+      }
+    ]
+  }
+}
