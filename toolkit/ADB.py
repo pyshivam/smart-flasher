@@ -92,7 +92,7 @@ class ADB(object):
             cmdp = subprocess.Popen(args, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                     encoding="utf-8")
             self.__output, self.__error = cmdp.communicate()
-            print(self.__output, self.__error)
+            # print(self.__output, self.__error)
             retcode = cmdp.wait()
             if "device unauthorized" in self.__output:
                 self.__error = "[-] Device unauthorized"
@@ -266,13 +266,17 @@ class ADB(object):
         if self.__error is not None:
             return self.__error
         try:
+            # model = re.split(':|\n| ', self.__output.split("\n")[1])
+            # print(model[17], model[19], model[21])
             for line in self.__output.split("\n"):
                 if line.startswith(self.__target):
+                    # print(line)
                     pattern = r"model:(.+)\sdevice"
                     pat = re.compile(pattern)
                     device_model = pat.findall(line)
                     device_model = re.sub("[\[\]\'{\}<>]", '', str(device_model))
         except Exception as e:
+            print(e)
             return "[-] Error: %s" % e.args[0]
 
         return device_model
@@ -501,3 +505,11 @@ class ADB(object):
 
     def get_devpath(self):
         return self.run_cmd('get-devpath')
+
+
+if __name__ == '__main__':
+    adb = ADB()
+    print(adb.get_devices())
+    print(adb.set_target_by_id(0))
+    print(adb.get_model())
+    print(adb.get_serialno())
