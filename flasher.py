@@ -10,6 +10,7 @@ from time import sleep
 
 
 def logo():
+    clear()
     print("""
 
 
@@ -40,7 +41,6 @@ Code :
 
 def clear():
     system("clear")
-    logo()
 
 
 def start():
@@ -67,9 +67,9 @@ if __name__ == '__main__':
         start()
     except KeyboardInterrupt:
         print("\n[!] CTRL+C Detected Exiting Tools . . .")
-        sleep(2)
+        sleep(1)
         sys.exit()
     except EOFError:
         print("\n[!] CTRL+Z Detected Exiting Tools . . .")
-        sleep(2)
+        sleep(1)
         sys.exit()
