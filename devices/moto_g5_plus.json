@@ -1,0 +1,28 @@
+{
+  "model": "Moto_G__5__Plus",
+  "support": {
+    "unlock-bootloader": "True",
+    "lock-bootloader": "True",
+    "stock-rom": {
+      "available": "True",
+      "download-link": {
+        "GDrive": "",
+        "others": ""
+      },
+      "versions": []
+    },
+    "stock-recovery": "True",
+    "custom-recovery": [
+      "True",
+      {
+        "recovery-type": [
+          "TWRP"
+        ],
+        "download-link": {
+          "GDrive": "",
+          "other": ""
+        }
+      }
+    ]
+  }
+}
