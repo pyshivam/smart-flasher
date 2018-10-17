@@ -1,8 +1,8 @@
 {
-  "model": "Moto_G__5__Plus",
+  "model": "Lenovo_P2a42",
   "support": {
     "unlock-bootloader": "True",
-    "lock-bootloader": "True",
+    "lock-bootloader": "False",
     "stock-rom": {
       "available": "True",
       "download-link": {

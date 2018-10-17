@@ -7,6 +7,7 @@ from toolkit import Fastboot
 from os import system
 import sys
 from time import sleep
+import json
 
 
 def logo():
@@ -47,9 +48,9 @@ def start():
     while True:
         choice = input("SFlasher@pyshivam:~# ").lower()
         if choice == "1" or choice == "devices":
-            print(adb.get_devices())
+            adb_operations()
         elif choice == "2" or choice == "fastboot devices":
-            print(fastboot.get_devices())
+            fastboot_operations()
         elif choice == "00" or choice == "clear":
             clear()
         elif choice == "99" or choice == "exit":
@@ -57,6 +58,20 @@ def start():
             sys.exit(0)
         else:
             print("Command not found...")
+
+
+def adb_operations(mode=1):
+    # print(adb.get_devices())
+    pass
+
+
+def fastboot_operations(mode=1):
+    # print(fastboot.get_devices())
+    pass
+
+
+def config_loader(device):
+    pass
 
 
 if __name__ == '__main__':
