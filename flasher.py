@@ -34,6 +34,7 @@ Code :
      1) ADB Devices        : Get list of all the adb devices.
      2) Fastboot Devices   : Get list of all fastboot devices.
      00) Clear             : Clear the screen.
+     99) Exit              : Exit from tool. 
 """)
 
 
@@ -51,6 +52,9 @@ def start():
             print(fastboot.get_devices())
         elif choice == "00" or choice == "clear":
             clear()
+        elif choice == "99" or choice == "exit":
+            print("Exiting tool.. \nThanks for using smart flasher.")
+            sys.exit(0)
         else:
             print("Command not found...")
 
@@ -62,6 +66,10 @@ if __name__ == '__main__':
         logo()
         start()
     except KeyboardInterrupt:
-        print("\n[!] CTRL+C Detect Exiting Tools . . .")
+        print("\n[!] CTRL+C Detected Exiting Tools . . .")
+        sleep(2)
+        sys.exit()
+    except EOFError:
+        print("\n[!] CTRL+Z Detected Exiting Tools . . .")
         sleep(2)
         sys.exit()
