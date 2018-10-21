@@ -112,7 +112,8 @@ class ADB(object):
         try:
             pattern = re.compile(r"version\s(.+)")
             version = pattern.findall(ret)[0]
-        except:
+        except Exception as e:
+            print(e)
             version = None
         return version
 
@@ -205,6 +206,7 @@ class ADB(object):
                 output_list = self.__output.split("\r")
 
             for line in output_list:
+                print(line)
                 pattern = re.compile(r"([^\s]+)\t+.+$")
                 device = pattern.findall(line)
                 if device:
@@ -506,10 +508,78 @@ class ADB(object):
     def get_devpath(self):
         return self.run_cmd('get-devpath')
 
+    def get_devices_with_model(self):
+        """
+            Get devices with model name from attached device.
+        """
+        self.run_cmd("devices -l")
+        device_model = ""
+
+        error = 0
+        # Clear existing list of devices
+        self.__devices = None
+        device_dict = {}
+
+        if self.__error is not None:
+            return self.__error
+        try:
+            # model = re.split('[:\n ]', self.__output.split("\n")[1])
+            # print(model[17], model[19], model[21], model[0])
+            # print(self.__output.split("\n"))
+            output_list = self.__output.split("\n")
+            # Split on \r if we are on Windows
+            if platform.system().lower == "windows":
+                output_list = self.__output.split("\r")
+
+            n = 1
+            for line in output_list:  # self.__output.split("\n"):
+                line = str(line)
+                if line != "" and not line.startswith("List"):  # line.startswith(self.__target):
+                    # line = "ZY223QD5N4             device usb:1-2 product:kuntao_row model:Lenovo_P2a42 device:P2a42 "
+                    # print(line, "Printing line")
+
+                    pattern = r"\w+"
+                    pat = re.compile(pattern)
+                    device_serial = pat.match(line).group(0)
+                    device_serial = re.sub("[\[\]\'{\}<>]", '', str(device_serial).strip())
+                    # print(device_serial)
+
+                    pattern = r"model:(.+)\sdevice"
+                    pat = re.compile(pattern)
+                    device_model = pat.findall(line)
+                    device_model = re.sub("[\[\]\'{\}<>]", '', str(device_model).strip())
+
+                    pattern = r"product:(.+)\smodel"
+                    pat = re.compile(pattern)
+                    device_product = pat.findall(line)
+                    device_product = re.sub("[\[\]\'{\}<>]", '', str(device_product).strip())
+
+                    pattern = r"device:(.+)"
+                    pat = re.compile(pattern)
+                    device = pat.findall(line)
+                    device = re.sub("[\[\]\'{\}<>]", '', str(device).strip())
+                    # print("Printing devices model, product, device:", device_model, device_product, device)
+
+                    device_dict[n] = "Model: %s Serial number: %s Device: %s Product: %s" % (
+                        device_model, device_serial, device, device_product)
+                    n += 1
+
+        except IndexError as e:
+            print("NO device found")
+            return "[-] Error: %s" % e.args[0]
+
+        except Exception as e:
+            print(e)
+            return "[-] Error: %s" % e.args[0]
+
+        self.__devices = device_dict
+        return self.__devices
+
 
 if __name__ == '__main__':
     adb = ADB()
-    print(adb.get_devices())
-    print(adb.set_target_by_id(0))
-    print(adb.get_model())
-    print(adb.get_serialno())
+    print(adb.get_devices_with_model())
+    # print(adb.get_devices())
+    # print(adb.set_target_by_id(0))
+    # print(adb.get_model())
+    # print(adb.get_serialno())

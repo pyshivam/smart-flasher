@@ -61,7 +61,12 @@ def start():
 
 
 def adb_operations(mode=1):
-    # print(adb.get_devices())
+    devices = adb.get_devices_with_model()
+    if devices is None:
+        print("No device Found..")
+    else:
+        for index, device in devices.items():
+            print("%s\t%s" % (index, device))
     pass
 
 
