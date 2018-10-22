@@ -6,22 +6,42 @@ from toolkit import Fastboot
 
 from os import system
 import sys
+from sys import platform as _platform
 from time import sleep
 import json
 
 
+class Terminal:
+    def __init__(self):
+        if _platform == "linux" or _platform == "linux2":
+           # linux
+           cmd_clear = "clear"
+        elif _platform == "darwin":
+           # MAC OS X
+           cmd_clear = "clear"
+        elif _platform == "win32":
+           # Windows
+           cmd_clear = "cls"
+        elif _platform == "win64":
+            # Windows 64-bit
+            cmd_clear = "cls"
+
+    def clear(self):
+        os.system(cmd_clear)
+
+
 def logo():
-    clear()
+    terminal.clear()
     print("""
 
 
-   _____                      _       ______ _           _               
-  / ____|                    | |     |  ____| |         | |              
- | (___  _ __ ___   __ _ _ __| |_    | |__  | | __ _ ___| |__   ___ _ __ 
+   _____                      _       ______ _           _
+  / ____|                    | |     |  ____| |         | |
+ | (___  _ __ ___   __ _ _ __| |_    | |__  | | __ _ ___| |__   ___ _ __
   \___ \| '_ ` _ \ / _` | '__| __|   |  __| | |/ _` / __| '_ \ / _ \ '__|
-  ____) | | | | | | (_| | |  | |_    | |    | | (_| \__ \ | | |  __/ |   
- |_____/|_| |_| |_|\__,_|_|   \__|   |_|    |_|\__,_|___/_| |_|\___|_|   
-                                                                       
+  ____) | | | | | | (_| | |  | |_    | |    | | (_| \__ \ | | |  __/ |
+ |_____/|_| |_| |_|\__,_|_|   \__|   |_|    |_|\__,_|___/_| |_|\___|_|
+
                                                                     V0.1
 
 
@@ -31,17 +51,14 @@ author: pyshivam<pyshivam.py@gmail.com>
 
 
 def smart_help():
+    logo()
     print("""
 Code :
      1) ADB Devices        : Get list of all the adb devices.
      2) Fastboot Devices   : Get list of all fastboot devices.
      00) Clear             : Clear the screen.
-     99) Exit              : Exit from tool. 
+     99) Exit              : Exit from tool.
 """)
-
-
-def clear():
-    system("clear")
 
 
 def start():
@@ -52,7 +69,7 @@ def start():
         elif choice == "2" or choice == "fastboot devices":
             fastboot_operations()
         elif choice == "00" or choice == "clear":
-            clear()
+            terminal.clear()
         elif choice == "99" or choice == "exit":
             print("Exiting tool.. \nThanks for using smart flasher.")
             sys.exit(0)
@@ -80,6 +97,7 @@ def config_loader(device):
 
 
 if __name__ == '__main__':
+    terminal = Terminal()
     adb = ADB()
     fastboot = Fastboot()
     try:
