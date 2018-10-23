@@ -14,20 +14,20 @@ import json
 class Terminal:
     def __init__(self):
         if _platform == "linux" or _platform == "linux2":
-           # linux
-           cmd_clear = "clear"
+            # linux
+            self.cmd_clear = "clear"
         elif _platform == "darwin":
-           # MAC OS X
-           cmd_clear = "clear"
+            # MAC OS X
+            self.cmd_clear = "clear"
         elif _platform == "win32":
-           # Windows
-           cmd_clear = "cls"
+            # Windows
+            self.cmd_clear = "cls"
         elif _platform == "win64":
             # Windows 64-bit
-            cmd_clear = "cls"
+            self.cmd_clear = "cls"
 
     def clear(self):
-        os.system(cmd_clear)
+        system(self.cmd_clear)
 
 
 def logo():
