@@ -64,10 +64,12 @@ Code :
 def start():
     while True:
         choice = input("SFlasher@pyshivam:~# ").lower()
-        if choice == "1" or choice == "devices":
+        if choice == "1" or choice == "adb devices":
             adb_operations()
         elif choice == "2" or choice == "fastboot devices":
             fastboot_operations()
+        elif choice == "3" or choice == "help":
+            smart_help()
         elif choice == "00" or choice == "clear":
             terminal.clear()
         elif choice == "99" or choice == "exit":
@@ -82,6 +84,7 @@ def adb_operations(mode=1):
     if devices is None:
         print("No device Found..")
     else:
+        print(devices)
         for index, device in devices.items():
             print("%s\t%s" % (index, device))
     pass
