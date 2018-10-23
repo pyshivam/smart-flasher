@@ -45,8 +45,9 @@ def logo():
                                                                     V0.1
 
 
-author: pyshivam<pyshivam.py@gmail.com>
-
+Author: Shivam Gupta (pyshivam)
+Email: pyshivam.py@gmail.com
+Github: https://www.github.com/pyshivam/
 """)
 
 
